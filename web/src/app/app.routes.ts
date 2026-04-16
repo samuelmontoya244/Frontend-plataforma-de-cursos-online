@@ -1,0 +1,67 @@
+import { Routes } from '@angular/router';
+
+import { auditUserGuard } from './core/audit-user.guard';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'login',
+    loadComponent: () => import('./features/login/login').then((m) => m.LoginComponent),
+  },
+  {
+    path: 'app',
+    canActivate: [auditUserGuard],
+    loadComponent: () => import('./features/shell/main-layout').then((m) => m.MainLayoutComponent),
+    children: [
+      { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
+      {
+        path: 'usuarios',
+        loadComponent: () =>
+          import('./features/usuarios/usuario-list').then((m) => m.UsuarioListComponent),
+      },
+      {
+        path: 'calificacion',
+        loadComponent: () =>
+          import('./features/calificacion/calificacion-list').then((m) => m.CalificacionListComponent),
+      },
+      {
+        path: 'categoria',
+        loadComponent: () =>
+          import('./features/categoria/categoria-list').then((m) => m.CategoriaListComponent),
+      },
+      {
+        path: 'certicado',
+        loadComponent: () =>
+          import('./features/certicado/certicado-list').then((m) => m.CerticadoListComponent),
+      },
+      {
+        path: 'curso',
+        loadComponent: () =>
+          import('./features/curso/curso-list').then(
+            (m) => m.cursoListComponent,
+          ),
+      },
+      {
+        path: 'evaluacion',
+        loadComponent: () => import('./features/evaluacion/evaluacion-list').then((m) => m.EvaluacionListComponent),
+      },
+      {
+        path: 'inscripcion',
+        loadComponent: () => import('./features/inscripcion/inscripcion-list').then((m) => m.InscripcionListComponent),
+      },
+      {
+        path: 'leccion',
+        loadComponent: () => import('./features/leccion/leccion-list').then((m) => m.leccionListComponent),
+      },
+      {
+        path: 'material',
+        loadComponent: () => import('./features/material/material-list').then((m) => m.MaterialListComponent),
+      },
+      {
+        path: 'pago',
+        loadComponent: () => import('./features/pago/pago-list').then((m) => m.PagoListComponent),
+      },
+    ],
+  },
+  { path: '**', redirectTo: 'login' },
+];
