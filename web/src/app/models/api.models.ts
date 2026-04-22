@@ -267,9 +267,12 @@ export interface PagoUpdate {
 export interface UsuarioResponse {
   id_usuario: string;
   nombre_usuario: string;
+  tipo_documento: string;
+  documento_identidad: string;
+  email: string;
   rol: string;
   activo: boolean;
-  fecha_creacion: string | null;
+  fecha_creacion: string;
   fecha_edicion: string | null;
   
 }

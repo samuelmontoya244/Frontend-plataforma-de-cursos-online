@@ -4,6 +4,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "rootDir": "./src", //lo agregue para que el compilador de Angular reconozca la carpeta src como raíz del proyecto
     "types": []
   },
   "include": [

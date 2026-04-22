@@ -19,48 +19,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/usuarios/usuario-list').then((m) => m.UsuarioListComponent),
       },
-      {
-        path: 'calificacion',
-        loadComponent: () =>
-          import('./features/calificacion/calificacion-list').then((m) => m.CalificacionListComponent),
-      },
-      {
-        path: 'categoria',
-        loadComponent: () =>
-          import('./features/categoria/categoria-list').then((m) => m.CategoriaListComponent),
-      },
-      {
-        path: 'certicado',
-        loadComponent: () =>
-          import('./features/certicado/certicado-list').then((m) => m.CerticadoListComponent),
-      },
-      {
-        path: 'curso',
-        loadComponent: () =>
-          import('./features/curso/curso-list').then(
-            (m) => m.cursoListComponent,
-          ),
-      },
-      {
-        path: 'evaluacion',
-        loadComponent: () => import('./features/evaluacion/evaluacion-list').then((m) => m.EvaluacionListComponent),
-      },
-      {
-        path: 'inscripcion',
-        loadComponent: () => import('./features/inscripcion/inscripcion-list').then((m) => m.InscripcionListComponent),
-      },
-      {
-        path: 'leccion',
-        loadComponent: () => import('./features/leccion/leccion-list').then((m) => m.leccionListComponent),
-      },
-      {
-        path: 'material',
-        loadComponent: () => import('./features/material/material-list').then((m) => m.MaterialListComponent),
-      },
-      {
-        path: 'pago',
-        loadComponent: () => import('./features/pago/pago-list').then((m) => m.PagoListComponent),
-      },
     ],
   },
   { path: '**', redirectTo: 'login' },
