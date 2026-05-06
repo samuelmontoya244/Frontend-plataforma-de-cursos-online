@@ -81,19 +81,16 @@ export interface CursoCreate {
   nombre_curso: string;
   duracion_horas: number;
   estado_curso: string;
-  id_usuario_creacion: string;
-  descripicon_curso: string | null;
+  descripcion_curso: string | null;
   
 }
 
 export interface CursoUpdate {
   id_categoria?: string;
-  id_usuario_edita?: string;
   nombre_curso?: string;
   duracion_horas?: number;
   estado_curso?: string;
-  id_usuario_creacion?: string;
-  descripicon_curso?: string | null;
+  descripcion_curso?: string | null;
  
 }	
 
@@ -143,18 +140,13 @@ export interface InscripcionResponse {
 export interface InscripcionCreate {
   id_curso: string;
   id_usuario_inscrito: string;
-  id_usuario_creacion: string;
   estado_inscripcion: string;
-  
-  
 }
 
 export interface InscripcionUpdate {
   id_curso?: string;
   id_usuario_inscrito?: string;
-  id_usuario_edita?: string;
   estado_inscripcion?: string;
- 
  
 }
 
@@ -221,7 +213,7 @@ export interface MaterialUpdate {
   id_leccion?: string;
   titulo_material?: string;
   tipo_material?: string | null;
-  URL_archivo?: number;
+  URL_archivo?: string;
   
  
  	
@@ -286,7 +278,6 @@ export interface UsuarioCreate {
   rol: string;
   activo: boolean;
   
-  
 }
 
 export interface UsuarioUpdate {
@@ -297,8 +288,6 @@ export interface UsuarioUpdate {
   contrasena?: string;
   rol?: string;
   activo?: boolean;
-  
- 
  	
 }
 

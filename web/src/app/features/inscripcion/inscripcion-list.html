@@ -1,0 +1,128 @@
+<div class="page-head">
+
+  <h1>Inscripciones</h1>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="nuevo()"
+  >
+    <mat-icon>add</mat-icon>
+    Nueva inscripción
+  </button>
+
+</div>
+
+@if (loading) {
+
+  <div class="loading">
+    <mat-spinner />
+  </div>
+
+} @else {
+
+  <div class="table-wrap mat-elevation-z2">
+
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Curso -->
+      <ng-container matColumnDef="id_curso">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Curso
+        </th>
+
+        <td mat-cell *matCellDef="let r">
+          {{ r.id_curso }}
+        </td>
+
+      </ng-container>
+
+      <!-- Usuario -->
+      <ng-container matColumnDef="id_usuario_inscrito">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Usuario inscrito
+        </th>
+
+        <td mat-cell *matCellDef="let r">
+          {{ r.id_usuario_inscrito }}
+        </td>
+
+      </ng-container>
+
+      <!-- Estado -->
+      <ng-container matColumnDef="estado_inscripcion">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Estado
+        </th>
+
+        <td mat-cell *matCellDef="let r">
+          {{ r.estado_inscripcion }}
+        </td>
+
+      </ng-container>
+
+      <!-- Fecha creación -->
+      <ng-container matColumnDef="fecha_creacion">
+
+        <th mat-header-cell *matHeaderCellDef>
+          Creación
+        </th>
+
+        <td mat-cell *matCellDef="let r">
+          {{ r.fecha_creacion | date:'short' }}
+        </td>
+
+      </ng-container>
+
+      <!-- Acciones -->
+      <ng-container matColumnDef="acciones">
+
+        <th mat-header-cell *matHeaderCellDef></th>
+
+        <td mat-cell *matCellDef="let r" class="actions">
+
+          <button
+            mat-icon-button
+            type="button"
+            (click)="editar(r)"
+            aria-label="Editar"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button
+            mat-icon-button
+            type="button"
+            (click)="eliminar(r)"
+            aria-label="Eliminar"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+
+        </td>
+
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+      ></tr>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+
+    </table>
+
+    <mat-paginator
+      [pageSizeOptions]="[5, 10, 25]"
+      showFirstLastButtons
+    />
+
+  </div>
+}
