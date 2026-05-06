@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select'; //importé MatSelect
 
 import { AuditContextService } from '../../core/audit-context.service';
 import { UsuarioService } from '../../core/services/usuario.service';
+import { AuthService } from '../../core/services/auth.service';
 import { UsuarioResponse } from '../../models/api.models';
 
 /**
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
   private readonly audit = inject(AuditContextService);
   private readonly router = inject(Router);
   private readonly snack = inject(MatSnackBar);
+  private readonly authService = inject(AuthService);
 
   readonly loading = signal(true);
   readonly usuarios = signal<UsuarioResponse[]>([]);
@@ -58,42 +60,51 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.reload();
-  }
+  this.reload();
+}
 
-  reload(): void {
-    this.loading.set(true);
-    this.usuarioService.list().subscribe({
-      next: (rows) => {
-        this.usuarios.set(rows);
-        this.loading.set(false);
-      },
-      error: (err: HttpErrorResponse) => {
-        this.loading.set(false);
-        this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 });
-      },
-    });
-  }
+reload(): void {
+  this.loading.set(true);
+
+  this.usuarioService.list().subscribe({
+    next: (rows) => {
+      this.usuarios.set(rows);
+      this.loading.set(false);
+    },
+    error: () => {
+      this.loading.set(false);
+      this.usuarios.set([]);
+    },
+  });
+}
 
   ingresar(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
-      return;
-    }
-    const { nombre_usuario } = this.loginForm.getRawValue();
-    const key = nombre_usuario.trim().toLowerCase();
-    const u = this.usuarios().find(
-      (x) => x.nombre_usuario.trim().toLowerCase() === key,
-    );
-    if (!u) {
-      this.snack.open('Usuario no encontrado. Revisa el nombre o crea un usuario en la base.', 'Cerrar', {
-        duration: 5000,
-      });
-      return;
-    }
-    this.audit.select(u.id_usuario);
-    void this.router.navigateByUrl('/app');
+  if (this.loginForm.invalid) {
+    this.loginForm.markAllAsTouched();
+    return;
   }
+
+  const { nombre_usuario, clave } = this.loginForm.getRawValue();
+
+  this.authService.login({
+    nombre_usuario,
+    contrasena: clave
+  }).subscribe({
+    next: (res) => {
+      //guardar token
+      localStorage.setItem('token', res.access_token);
+
+      //sacar user_id del token
+      const payload: any = JSON.parse(atob(res.access_token.split('.')[1]));
+      this.audit.select(payload.user_id);
+
+      void this.router.navigateByUrl('/app');
+    },
+    error: (err: HttpErrorResponse) => {
+      this.snack.open(this.msg(err), 'Cerrar', { duration: 5000 });
+    }
+  });
+}
 
   crearPrimero(): void {
     if (this.firstUserForm.invalid) {

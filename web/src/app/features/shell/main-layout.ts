@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuditContextService } from '../../core/audit-context.service';
 import { UsuarioService } from '../../core/services/usuario.service';
 import { UsuarioResponse } from '../../models/api.models';
+import { AuthService } from '../../core/services/auth.service';
 
 const SIDEBAR_KEY = 'shell_sidebar_collapsed';
 
@@ -47,6 +48,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   private readonly usuarioService = inject(UsuarioService);
   private readonly router = inject(Router);
   private readonly snack = inject(MatSnackBar);
+  private readonly authService = inject(AuthService);
 
   @ViewChild('sidenavShell') private sidenavShell?: MatSidenavContainer;
 
@@ -61,6 +63,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   readonly nav = [
     { path: 'usuarios', label: 'Usuarios', icon: 'people' },
+    { path: 'cursos', label: 'Cursos', icon: 'book' },
+    { path: 'inscripciones', label: 'Inscripciones', icon: 'assignment' }
   ];
 
   ngOnInit(): void {
@@ -102,6 +106,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   logout(): void {
     this.audit.clear();
+    this.authService.logout();
     void this.router.navigateByUrl('/login');
   }
 

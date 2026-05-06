@@ -1,0 +1,91 @@
+<h2 mat-dialog-title>
+  {{ data.mode === 'create' ? 'Nueva inscripción' : 'Editar inscripción' }}
+</h2>
+
+<mat-dialog-content class="dialog-body">
+
+  <form [formGroup]="form" class="grid">
+
+    <!-- Curso -->
+    <mat-form-field appearance="outline" class="span-2">
+
+      <mat-label>Curso</mat-label>
+
+      <input
+        matInput
+        formControlName="id_curso"
+      />
+
+    </mat-form-field>
+
+    <!-- Usuario inscrito -->
+    <mat-form-field appearance="outline" class="span-2">
+
+      <mat-label>Usuario inscrito</mat-label>
+
+      <input
+        matInput
+        formControlName="id_usuario_inscrito"
+      />
+
+    </mat-form-field>
+
+    <!-- Estado -->
+    <mat-form-field appearance="outline">
+
+      <mat-label>Estado de inscripción</mat-label>
+
+      <mat-select formControlName="estado_inscripcion">
+
+        <mat-option value="PENDIENTE">
+          Pendiente
+        </mat-option>
+
+        <mat-option value="ACTIVA">
+          Activa
+        </mat-option>
+
+        <mat-option value="FINALIZADA">
+          Finalizada
+        </mat-option>
+
+        <mat-option value="CANCELADA">
+          Cancelada
+        </mat-option>
+
+        <mat-option value="APROBADA">
+          Aprobada
+        </mat-option>
+
+        <mat-option value="REPROBADA">
+          Reprobada
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    type="button"
+    (click)="cancel()"
+  >
+    Cancelar
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="save()"
+  >
+    Guardar
+  </button>
+
+</mat-dialog-actions>
