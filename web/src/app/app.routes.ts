@@ -19,6 +19,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/usuarios/usuario-list').then((m) => m.UsuarioListComponent),
       },
+      {
+        path: 'cursos',
+        loadComponent: () =>
+          import('./features/curso/curso-list').then((m) => m.CursoListComponent),
+      },
+      {
+        path: 'inscripciones',
+        loadComponent: () =>
+          import('./features/inscripcion/inscripcion-list').then((m) => m.InscripcionListComponent),
+      },
     ],
   },
   { path: '**', redirectTo: 'login' },
