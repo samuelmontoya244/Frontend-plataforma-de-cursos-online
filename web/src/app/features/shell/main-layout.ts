@@ -56,16 +56,18 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   readonly usuarios = signal<UsuarioResponse[]>([]);
 
-  /** Menú lateral estrecho (solo iconos) o ancho (icono + texto). */
   readonly sidebarCollapsed = signal(
     typeof localStorage !== 'undefined' && localStorage.getItem(SIDEBAR_KEY) === '1',
   );
 
   readonly nav = [
-    { path: 'usuarios', label: 'Usuarios', icon: 'people' },
-    { path: 'cursos', label: 'Cursos', icon: 'book' },
-    { path: 'inscripciones', label: 'Inscripciones', icon: 'assignment' }
-  ];
+  { path: 'usuarios',       label: 'Usuarios',        icon: 'people' },
+  { path: 'cursos',         label: 'Cursos',          icon: 'book' },
+  { path: 'inscripciones',  label: 'Inscripciones',   icon: 'assignment' },
+  { path: 'categorias',     label: 'Categorías',      icon: 'category' },
+  { path: 'calificaciones', label: 'Calificaciones',  icon: 'grade' },
+  { path: 'certificados',   label: 'Certificados',    icon: 'workspace_premium' },
+];
 
   ngOnInit(): void {
     this.usuarioService.list().subscribe({
@@ -79,10 +81,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.syncContentMarginsWithDrawer();
   }
 
-  /**
-   * El margen de `mat-sidenav-content` lo fija Material según el ancho del drawer.
-   * Si solo cambiamos el ancho por CSS, hay que pedir un recálculo (y/o usar `autosize`).
-   */
   private syncContentMarginsWithDrawer(): void {
     const shell = this.sidenavShell;
     if (!shell) {
