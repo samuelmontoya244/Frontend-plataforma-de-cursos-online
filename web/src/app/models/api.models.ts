@@ -111,26 +111,14 @@ export interface EvaluacionCreate {
   id_leccion: string;
   nombre_evaluacion: string;
   porcentaje: number;
-<<<<<<< Updated upstream
-  id_usuario_creacion: string;
-=======
-  
-  
-  
->>>>>>> Stashed changes
+
 }
 
 export interface EvaluacionUpdate {
   id_leccion?: string;
   nombre_evaluacion?: string;
   porcentaje?: number;
-<<<<<<< Updated upstream
-  id_usuario_edita?: string;
-=======
-  
- 
- 
->>>>>>> Stashed changes
+
 }
 
 
@@ -210,14 +198,7 @@ export interface MaterialCreate {
   titulo_material: string;
   tipo_material: string | null;
   URL_archivo: string;
-<<<<<<< Updated upstream
-  id_usuario_creacion: string;
-=======
- 
- 
-  
-  
->>>>>>> Stashed changes
+
 }
 
 export interface MaterialUpdate {
