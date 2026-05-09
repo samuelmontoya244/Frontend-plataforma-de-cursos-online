@@ -69,9 +69,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   { path: 'categorias',     label: 'Categorías',      icon: 'category' },
   { path: 'calificaciones', label: 'Calificaciones',  icon: 'grade' },
   { path: 'certificados',   label: 'Certificados',    icon: 'workspace_premium' },
-
-  { path: 'usuarios', label: 'Usuarios', icon: 'people' },
-  { path: 'cursos', label: 'Cursos', icon: 'book' },
   { path: 'inscripciones', label: 'Inscripciones', icon: 'assignment' },
   { path: 'material', label: 'Material', icon: 'library_books' }, 
   { path: 'pagos', label: 'Pagos', icon: 'payment' },

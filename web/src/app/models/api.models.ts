@@ -26,18 +26,29 @@ export interface CalificacionUpdate {
 
 
 export interface CategoriaRead {
-  
+  id_categoria: string;
+  nombre: string;
+  descripcion: string | null;
+  estado: boolean;
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
 }
 
 export interface CategoriaCreate {
-  
-  
+  nombre: string;
+  descripcion?: string | null;
+  estado?: boolean;
+  id_usuario_creacion: string;
 }
 
 export interface CategoriaUpdate {
-  
-}	
-
+  nombre?: string;
+  descripcion?: string | null;
+  estado?: boolean;
+  id_usuario_edita: string;
+}
 
 
 export interface CertificadoResponse {
