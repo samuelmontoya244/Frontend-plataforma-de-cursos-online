@@ -9,12 +9,10 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSelectModule } from '@angular/material/select';
 
 import { CursoService } from '../../core/services/curso.service';
-import { AuditContextService } from '../../core/audit-context.service'; // ✅ agregado
 
 import {
   CursoResponse,
   CursoUpdate,
-  CursoCreate, // ✅ agregado
 } from '../../models/api.models';
 
 export interface CursoDialogData {
@@ -45,15 +43,17 @@ export class CursoDialogComponent {
 
   private readonly snack = inject(MatSnackBar);
 
-  private readonly audit = inject(AuditContextService); // ✅ agregado
-
   readonly data = inject<CursoDialogData>(MAT_DIALOG_DATA);
 
   readonly form = this.fb.nonNullable.group({
     id_categoria: ['', Validators.required],
+
     nombre_curso: ['', Validators.required],
+
     duracion_horas: [0, [Validators.required, Validators.min(1)]],
+
     estado_curso: ['', Validators.required],
+
     descripcion_curso: [''],
   });
 
@@ -85,33 +85,22 @@ export class CursoDialogComponent {
 
     // CREATE
     if (this.data.mode === 'create') {
+      this.cursoService
+        .create({
+          id_categoria: v.id_categoria,
+          nombre_curso: v.nombre_curso,
+          duracion_horas: v.duracion_horas,
+          estado_curso: v.estado_curso,
+          descripcion_curso: v.descripcion_curso,
+        })
+        .subscribe({
+          next: () => this.dialogRef.close(true),
 
-      const userId = this.audit.usuarioId(); // ✅ agregado
-
-      if (!userId) {
-        this.snack.open('Selecciona un usuario auditor', 'Cerrar', {
-          duration: 6000,
+          error: (err: HttpErrorResponse) =>
+            this.snack.open(this.msg(err), 'Cerrar', {
+              duration: 6000,
+            }),
         });
-        return;
-      }
-
-      const payload: CursoCreate = { // ✅ agregado
-        id_categoria: v.id_categoria,
-        nombre_curso: v.nombre_curso,
-        duracion_horas: v.duracion_horas,
-        estado_curso: v.estado_curso,
-        descripcion_curso: v.descripcion_curso,
-        id_usuario_creacion: userId, // 🔥 solución
-      };
-
-      this.cursoService.create(payload).subscribe({
-        next: () => this.dialogRef.close(true),
-
-        error: (err: HttpErrorResponse) =>
-          this.snack.open(this.msg(err), 'Cerrar', {
-            duration: 6000,
-          }),
-      });
 
       return;
     }

@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>
+  {{ data.mode === 'create' ? 'Nuevo material' : 'Editar material' }}
+</h2>
+
+<mat-dialog-content class="dialog-body">
+
+  <form [formGroup]="form" class="grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>ID Lección</mat-label>
+      <input matInput formControlName="id_leccion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Título material</mat-label>
+      <input matInput formControlName="titulo_material" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo material</mat-label>
+      <input matInput formControlName="tipo_material" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>URL archivo</mat-label>
+
+      <input
+        matInput
+        formControlName="URL_archivo"
+      />
+    </mat-form-field>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    type="button"
+    (click)="cancel()"
+  >
+    Cancelar
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="save()"
+  >
+    Guardar
+  </button>
+
+</mat-dialog-actions>

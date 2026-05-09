@@ -1,0 +1,26 @@
+[33m8554d09[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeat--pago,-evaluacion,-material,-leccion[m[33m, [m[1;31morigin/feat--pago,-evaluacion,-material,-leccion[m[33m)[m HEAD@{0}: commit: feat: pago, evaluacion, material, leccion
+[33mead0e29[m[33m ([m[1;31morigin/prod[m[33m, [m[1;31morigin/feat--pago,-evaluacion,-leccion,-material[m[33m, [m[1;32mfeat--pago,-evaluacion,-leccion,-material[m[33m)[m HEAD@{1}: checkout: moving from feat--finalice-pago,-evaluacion,-leccion,-material to feat--pago,-evaluacion,-material,-leccion
+[33m374431e[m[33m ([m[1;31morigin/feat--finalice-pago,-evaluacion,-leccion,-material[m[33m, [m[1;32mfeat--finalice-pago,-evaluacion,-leccion,-material[m[33m)[m HEAD@{2}: commit: feat: pago, evaluacion, leccion, material
+[33mead0e29[m[33m ([m[1;31morigin/prod[m[33m, [m[1;31morigin/feat--pago,-evaluacion,-leccion,-material[m[33m, [m[1;32mfeat--pago,-evaluacion,-leccion,-material[m[33m)[m HEAD@{3}: checkout: moving from feat--pago,-evaluacion,-leccion,-material to feat--finalice-pago,-evaluacion,-leccion,-material
+[33mead0e29[m[33m ([m[1;31morigin/prod[m[33m, [m[1;31morigin/feat--pago,-evaluacion,-leccion,-material[m[33m, [m[1;32mfeat--pago,-evaluacion,-leccion,-material[m[33m)[m HEAD@{4}: checkout: moving from feat--finalice-pago,-evaluacion,-leccion,-material to feat--pago,-evaluacion,-leccion,-material
+[33mead0e29[m[33m ([m[1;31morigin/prod[m[33m, [m[1;31morigin/feat--pago,-evaluacion,-leccion,-material[m[33m, [m[1;32mfeat--pago,-evaluacion,-leccion,-material[m[33m)[m HEAD@{5}: checkout: moving from feat--finiquitacion-de-evaluacion,-pago,-,leccion,material to feat--finalice-pago,-evaluacion,-leccion,-material
+[33m0f6533b[m[33m ([m[1;32mfeat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m)[m HEAD@{6}: commit: avance frontend evaluacion
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{7}: checkout: moving from feat--finiquitacion-de-evaluacion,-pago,-,leccion,material to feat--finiquitacion-de-evaluacion,-pago,-,leccion,material
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{8}: checkout: moving from prod to feat--finiquitacion-de-evaluacion,-pago,-,leccion,material
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{9}: checkout: moving from prod to prod
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{10}: checkout: moving from prod to prod
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{11}: checkout: moving from feat--finiquitacion-de-evaluacion,-pago,-,leccion,material to prod
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{12}: checkout: moving from prod to feat--finiquitacion-de-evaluacion,-pago,-,leccion,material
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{13}: checkout: moving from prod to prod
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{14}: reset: moving to HEAD
+[33mc9bba17[m[33m ([m[1;31morigin/feat--finiquitacion-de-evaluacion,-pago,-,leccion,material[m[33m, [m[1;32mprod[m[33m)[m HEAD@{15}: pull: Fast-forward
+[33md6f851f[m HEAD@{16}: reset: moving to HEAD
+[33md6f851f[m HEAD@{17}: checkout: moving from prod to prod
+[33md6f851f[m HEAD@{18}: checkout: moving from prod to prod
+[33md6f851f[m HEAD@{19}: pull: Fast-forward
+[33mc331c9d[m HEAD@{20}: checkout: moving from feat--cree-model-y-app.routes to prod
+[33m2ad104c[m[33m ([m[1;31morigin/feat--cree-model-y-app.routes[m[33m, [m[1;32mfeat--cree-model-y-app.routes[m[33m)[m HEAD@{21}: commit: feat: cree model y app.routes
+[33mc331c9d[m HEAD@{22}: checkout: moving from prod to feat--cree-model-y-app.routes
+[33mc331c9d[m HEAD@{23}: pull: Fast-forward
+[33m6b021d7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{24}: checkout: moving from main to prod
+[33m6b021d7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{25}: clone: from https://github.com/samuelmontoya244/Frontend-plataforma-de-cursos-online
