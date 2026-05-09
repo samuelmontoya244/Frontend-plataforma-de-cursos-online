@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>
+  {{ data.mode === 'create' ? 'Nueva lección' : 'Editar lección' }}
+</h2>
+
+<mat-dialog-content class="dialog-body">
+
+  <form [formGroup]="form" class="grid">
+
+    <mat-form-field appearance="outline">
+      <mat-label>ID Curso</mat-label>
+      <input matInput formControlName="id_curso" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Título lección</mat-label>
+      <input matInput formControlName="titulo_leccion" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Descripción</mat-label>
+
+      <textarea
+        matInput
+        rows="4"
+        formControlName="descripcion_leccion"
+      ></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Orden</mat-label>
+
+      <input
+        matInput
+        type="number"
+        formControlName="orden"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Duración (horas)</mat-label>
+
+      <input
+        matInput
+        type="number"
+        formControlName="duracion_horas"
+      />
+    </mat-form-field>
+
+  </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    type="button"
+    (click)="cancel()"
+  >
+    Cancelar
+  </button>
+
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="save()"
+  >
+    Guardar
+  </button>
+
+</mat-dialog-actions>

@@ -1,0 +1,64 @@
+<div class="page-head">
+  <h1>Gestión de Pagos</h1>
+  <button mat-flat-button color="primary" (click)="nuevo()">
+    <mat-icon>add</mat-icon>
+    Nuevo Pago
+  </button>
+</div>
+
+@if (loading) {
+  <div class="loading">
+    <mat-spinner />
+  </div>
+} @else {
+  <div class="table-wrap mat-elevation-z2">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="id_pago">
+        <th mat-header-cell *matHeaderCellDef>ID Pago</th>
+        <td mat-cell *matCellDef="let r">{{ r.id_pago | uppercase }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="monto">
+        <th mat-header-cell *matHeaderCellDef>Monto</th>
+        <td mat-cell *matCellDef="let r">{{ r.monto | currency }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado_pago">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let r">
+          <span class="badge" [ngClass]="r.estado_pago">
+            {{ r.estado_pago }}
+          </span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="metodo_pago">
+        <th mat-header-cell *matHeaderCellDef>Método</th>
+        <td mat-cell *matCellDef="let r">{{ r.metodo_pago }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fecha_creacion">
+        <th mat-header-cell *matHeaderCellDef>Fecha</th>
+        <td mat-cell *matCellDef="let r">{{ r.fecha_creacion | date:'short' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let r" class="actions">
+          <button mat-icon-button (click)="editar(r)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminar(r)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons />
+  </div>
+}
