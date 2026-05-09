@@ -35,13 +35,15 @@ export class CategoriaDialogComponent {
   private readonly snack = inject(MatSnackBar);
   readonly data = inject<CategoriaDialogData>(MAT_DIALOG_DATA);
 
+  // ✅ CAMBIO
   readonly form = this.fb.nonNullable.group({
-    nombre_categoria: ['', Validators.required],
+    nombre: ['', Validators.required],
   });
 
   constructor() {
     if (this.data.mode === 'edit' && this.data.row) {
-      this.form.patchValue({ nombre_categoria: this.data.row.nombre_categoria });
+      // ✅ CAMBIO
+      this.form.patchValue({ nombre: this.data.row.nombre });
     }
   }
 
@@ -54,16 +56,19 @@ export class CategoriaDialogComponent {
       this.form.markAllAsTouched();
       return;
     }
+
     const uid = this.audit.usuarioId();
     if (!uid) {
       this.snack.open('Seleccione usuario de auditoría en la barra superior.', 'OK');
       return;
     }
+
     const v = this.form.getRawValue();
 
     if (this.data.mode === 'create') {
       this.svc
-        .create({ nombre_categoria: v.nombre_categoria, id_usuario_creacion: uid })
+        // ✅ CAMBIO
+        .create({ nombre: v.nombre, id_usuario_creacion: uid })
         .subscribe({
           next: () => this.dialogRef.close(true),
           error: (err: HttpErrorResponse) =>
@@ -74,7 +79,8 @@ export class CategoriaDialogComponent {
 
     this.svc
       .update(this.data.row!.id_categoria, {
-        nombre_categoria: v.nombre_categoria,
+        // ✅ CAMBIO
+        nombre: v.nombre,
         id_usuario_edita: uid,
       })
       .subscribe({
