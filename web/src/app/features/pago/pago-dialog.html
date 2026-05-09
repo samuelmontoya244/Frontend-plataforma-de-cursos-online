@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  {{ data.mode === 'create' ? 'Registrar Pago' : 'Editar Pago' }}
+</h2>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="grid">
+    
+    <mat-form-field appearance="outline">
+      <mat-label>ID Curso</mat-label>
+      <input matInput formControlName="id_curso" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Monto</mat-label>
+      <input matInput type="number" formControlName="monto" />
+      <span matPrefix>$&nbsp;</span>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado de Pago</mat-label>
+      <mat-select formControlName="estado_pago">
+        <mat-option value="pendiente">Pendiente</mat-option>
+        <mat-option value="completado">Completado</mat-option>
+        <mat-option value="fallido">Fallido</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Método de Pago</mat-label>
+      <input matInput formControlName="metodo_pago" placeholder="Ej: Tarjeta, Transferencia" />
+    </mat-form-field>
+
+    @if (data.mode === 'edit') {
+      <mat-form-field appearance="outline" class="span-2">
+        <mat-label>ID Usuario</mat-label>
+        <input matInput formControlName="id_usuario" />
+      </mat-form-field>
+    }
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="save()">
+    Guardar
+  </button>
+</mat-dialog-actions>
