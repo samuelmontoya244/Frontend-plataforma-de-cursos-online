@@ -12,10 +12,13 @@ OCAMPO GAMEZ DUVAN ESNAYDER
 
 🔗 Enlaces del Proyecto
 Repositorio Backend: GitHub - Backend
+https://github.com/samuelmontoya244/Backend-plataforma-de-cursos-online
 
 Repositorio Frontend: GitHub - Frontend
+https://github.com/samuelmontoya244/Frontend-plataforma-de-cursos-online
 
 Presentación en Video: Grabación de la Reunión
+https://correoitmedu-my.sharepoint.com/:v:/g/personal/nicolascano1136534_correo_itm_edu_co/IQCU2bmBSQYTSY4EaAG07bM6Af7MgU7BmlKflkMScFlKfjA?e=V2YShU&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
 🛠️ Stack Tecnológico
 Backend
