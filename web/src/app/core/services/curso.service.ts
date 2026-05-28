@@ -13,7 +13,8 @@ export class CursoService {
 
   list(): Observable<CursoResponse[]> {
     const params = new HttpParams().set('skip', 0).set('limit', 500);
-    return this.http.get<CursoResponse[]>(`${this.base}/`, { params });
+    // ✅ CORREGIDO: sin slash al final
+    return this.http.get<CursoResponse[]>(this.base, { params });
   }
 
   get(id: string): Observable<CursoResponse> {
@@ -21,7 +22,8 @@ export class CursoService {
   }
 
   create(body: CursoCreate): Observable<CursoResponse> {
-    return this.http.post<CursoResponse>(`${this.base}/`, body);
+    // ✅ CORREGIDO: sin slash al final
+    return this.http.post<CursoResponse>(this.base, body);
   }
 
   update(id: string, body: CursoUpdate): Observable<CursoResponse> {

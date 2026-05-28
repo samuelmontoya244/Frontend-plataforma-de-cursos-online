@@ -1,52 +1,39 @@
-<h2 mat-dialog-title>
-  {{ data.mode === 'create' ? 'Nueva evaluación' : 'Editar evaluación' }}
-</h2>
+<h2 mat-dialog-title>{{ data.mode === 'create' ? 'Nueva evaluación' : 'Editar evaluación' }}</h2>
 
 <mat-dialog-content class="dialog-body">
   <form [formGroup]="form" class="grid">
 
-    <!-- Lección -->
-    <mat-form-field appearance="outline">
+    <!-- Lección — dropdown -->
+    <mat-form-field appearance="outline" class="span-2">
       <mat-label>Lección</mat-label>
-      <input matInput formControlName="id_leccion" />
+      <mat-select formControlName="id_leccion">
+        @if (loadingLecciones) {
+          <mat-option disabled>Cargando...</mat-option>
+        } @else {
+          @for (l of lecciones; track l.id_leccion) {
+            <mat-option [value]="l.id_leccion">{{ l.titulo_leccion }}</mat-option>
+          }
+        }
+      </mat-select>
+      @if (form.controls.id_leccion.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
     </mat-form-field>
 
-    <!-- Nombre -->
     <mat-form-field appearance="outline" class="span-2">
       <mat-label>Nombre evaluación</mat-label>
       <input matInput formControlName="nombre_evaluacion" />
     </mat-form-field>
 
-    <!-- Porcentaje -->
     <mat-form-field appearance="outline">
       <mat-label>Porcentaje</mat-label>
-      <input
-        matInput
-        type="number"
-        formControlName="porcentaje"
-      />
+      <input matInput type="number" formControlName="porcentaje" />
     </mat-form-field>
 
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-
-  <button
-    mat-button
-    type="button"
-    (click)="cancel()"
-  >
-    Cancelar
-  </button>
-
-  <button
-    mat-flat-button
-    color="primary"
-    type="button"
-    (click)="save()"
-  >
-    Guardar
-  </button>
-
+  <button mat-button type="button" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="save()">Guardar</button>
 </mat-dialog-actions>

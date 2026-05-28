@@ -29,7 +29,6 @@ import {
 } from '@angular/material/table';
 import { filter } from 'rxjs/operators';
 
-// Cambia estas rutas según tu estructura real de carpetas
 import { PagoService } from '../../core/services/pago.service';
 import { PagoResponse } from '../../models/api.models';
 import {
@@ -58,10 +57,9 @@ export class PagoListComponent implements AfterViewInit {
   private readonly dialog = inject(MatDialog);
   private readonly snack = inject(MatSnackBar);
 
+  // ✅ CORREGIDO: eliminados 'id_usuario' e 'id_curso' que no tienen matColumnDef en el HTML
   readonly displayedColumns = [
     'id_pago',
-    'id_usuario',
-    'id_curso',
     'monto',
     'estado_pago',
     'metodo_pago',

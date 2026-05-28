@@ -24,12 +24,10 @@ export interface CalificacionUpdate {
 }	
 
 
-
+// ✅ CORREGIDO: alineado con categoria_schema.py del backend
 export interface CategoriaRead {
   id_categoria: string;
-  nombre: string;
-  descripcion: string | null;
-  estado: boolean;
+  nombre_categoria: string;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
   id_usuario_creacion: string;
@@ -37,16 +35,12 @@ export interface CategoriaRead {
 }
 
 export interface CategoriaCreate {
-  nombre: string;
-  descripcion?: string | null;
-  estado?: boolean;
+  nombre_categoria: string;
   id_usuario_creacion: string;
 }
 
 export interface CategoriaUpdate {
-  nombre?: string;
-  descripcion?: string | null;
-  estado?: boolean;
+  nombre_categoria?: string;
   id_usuario_edita: string;
 }
 
@@ -237,28 +231,20 @@ export interface PagoResponse {
 }
 
 export interface PagoCreate {
-
   id_curso: string;
   monto: number;
   estado_pago: string;
   metodo_pago: string;
   id_usuario?: string;          
   id_usuario_creacion?: string;
- 
-  
-  
 }
 
 export interface PagoUpdate {
   id_usuario?: string;
   id_curso?: string;
-  
   monto?: number;
   estado_pago?: string;
   metodo_pago?: string;
-  
- 
- 	
 }
 
 export interface UsuarioResponse {
@@ -294,8 +280,4 @@ export interface UsuarioUpdate {
   contrasena?: string;
   rol?: string;
   activo?: boolean;
-  
- 
- 	
 }
-
