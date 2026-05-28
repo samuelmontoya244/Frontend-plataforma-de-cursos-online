@@ -1,13 +1,40 @@
-<h2 mat-dialog-title>
-  {{ data.mode === 'create' ? 'Registrar Pago' : 'Editar Pago' }}
-</h2>
+<h2 mat-dialog-title>{{ data.mode === 'create' ? 'Registrar Pago' : 'Editar Pago' }}</h2>
 
 <mat-dialog-content class="dialog-body">
   <form [formGroup]="form" class="grid">
-    
-    <mat-form-field appearance="outline">
-      <mat-label>ID Curso</mat-label>
-      <input matInput formControlName="id_curso" />
+
+    <!-- Curso — dropdown -->
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Curso</mat-label>
+      <mat-select formControlName="id_curso">
+        @if (loadingCursos) {
+          <mat-option disabled>Cargando...</mat-option>
+        } @else {
+          @for (c of cursos; track c.id_curso) {
+            <mat-option [value]="c.id_curso">{{ c.nombre_curso }}</mat-option>
+          }
+        }
+      </mat-select>
+      @if (form.controls.id_curso.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Usuario — dropdown -->
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Usuario</mat-label>
+      <mat-select formControlName="id_usuario">
+        @if (loadingUsuarios) {
+          <mat-option disabled>Cargando...</mat-option>
+        } @else {
+          @for (u of usuarios; track u.id_usuario) {
+            <mat-option [value]="u.id_usuario">{{ u.nombre_usuario }}</mat-option>
+          }
+        }
+      </mat-select>
+      @if (form.controls.id_usuario.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -25,24 +52,15 @@
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="span-2">
       <mat-label>Método de Pago</mat-label>
       <input matInput formControlName="metodo_pago" placeholder="Ej: Tarjeta, Transferencia" />
     </mat-form-field>
-
-    @if (data.mode === 'edit') {
-      <mat-form-field appearance="outline" class="span-2">
-        <mat-label>ID Usuario</mat-label>
-        <input matInput formControlName="id_usuario" />
-      </mat-form-field>
-    }
 
   </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-button type="button" (click)="cancel()">Cancelar</button>
-  <button mat-flat-button color="primary" type="button" (click)="save()">
-    Guardar
-  </button>
+  <button mat-flat-button color="primary" type="button" (click)="save()">Guardar</button>
 </mat-dialog-actions>

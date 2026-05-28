@@ -13,7 +13,8 @@ export class InscripcionService {
 
   list(): Observable<InscripcionResponse[]> {
     const params = new HttpParams().set('skip', 0).set('limit', 500);
-    return this.http.get<InscripcionResponse[]>(`${this.base}/`, { params });
+    // ✅ CORREGIDO: sin slash al final
+    return this.http.get<InscripcionResponse[]>(this.base, { params });
   }
 
   get(id: string): Observable<InscripcionResponse> {
@@ -21,7 +22,8 @@ export class InscripcionService {
   }
 
   create(body: InscripcionCreate): Observable<InscripcionResponse> {
-    return this.http.post<InscripcionResponse>(`${this.base}/`, body);
+    // ✅ CORREGIDO: sin slash al final
+    return this.http.post<InscripcionResponse>(this.base, body);
   }
 
   update(id: string, body: InscripcionUpdate): Observable<InscripcionResponse> {

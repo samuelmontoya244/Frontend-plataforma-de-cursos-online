@@ -1,35 +1,17 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject } from '@angular/core';
-import {
-  FormBuilder,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  MAT_DIALOG_DATA,
-  MatDialogModule,
-  MatDialogRef,
-} from '@angular/material/dialog';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule }
-  from '@angular/material/form-field';
-import { MatInputModule }
-  from '@angular/material/input';
-import {
-  MatSnackBar,
-  MatSnackBarModule,
-} from '@angular/material/snack-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
-// ✅ NUEVO
 import { AuditContextService } from '../../core/audit-context.service';
-
-import { LeccionService }
-  from '../../core/services/leccion.service';
-
-import {
-  LeccionResponse,
-  LeccionUpdate,
-} from '../../models/api.models';
+import { LeccionService } from '../../core/services/leccion.service';
+import { CursoService } from '../../core/services/curso.service';
+import { LeccionResponse, LeccionUpdate, CursoResponse } from '../../models/api.models';
 
 export interface LeccionDialogData {
   mode: 'create' | 'edit';
@@ -44,21 +26,22 @@ export interface LeccionDialogData {
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     MatSnackBarModule,
   ],
   templateUrl: './leccion-dialog.html',
 })
-export class LeccionDialogComponent {
-
+export class LeccionDialogComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly leccionService = inject(LeccionService);
+  private readonly cursoService = inject(CursoService);
+  private readonly audit = inject(AuditContextService);
   private readonly dialogRef = inject(MatDialogRef<LeccionDialogComponent, boolean>);
   private readonly snack = inject(MatSnackBar);
-
-  // ✅ NUEVO
-  private readonly audit = inject(AuditContextService);
-
   readonly data = inject<LeccionDialogData>(MAT_DIALOG_DATA);
+
+  cursos: CursoResponse[] = [];
+  loadingCursos = true;
 
   readonly form = this.fb.nonNullable.group({
     id_curso: ['', Validators.required],
@@ -68,10 +51,14 @@ export class LeccionDialogComponent {
     duracion_horas: [1, [Validators.required, Validators.min(1)]],
   });
 
-  constructor() {
+  ngOnInit(): void {
+    this.cursoService.list().subscribe({
+      next: (data) => { this.cursos = data; this.loadingCursos = false; },
+      error: () => { this.loadingCursos = false; this.snack.open('Error al cargar cursos', 'Cerrar', { duration: 4000 }); },
+    });
+
     if (this.data.mode === 'edit' && this.data.row) {
       const r = this.data.row;
-
       this.form.patchValue({
         id_curso: r.id_curso,
         titulo_leccion: r.titulo_leccion,
@@ -82,51 +69,28 @@ export class LeccionDialogComponent {
     }
   }
 
-  cancel(): void {
-    this.dialogRef.close(false);
-  }
+  cancel(): void { this.dialogRef.close(false); }
 
   save(): void {
-
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
+    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+    const uid = this.audit.usuarioId();
+    if (!uid) { this.snack.open('Seleccione usuario de auditoría.', 'OK'); return; }
     const v = this.form.getRawValue();
 
-    // ✅ NUEVO
-    const uid = this.audit.usuarioId();
-    if (!uid) {
-      this.snack.open('Seleccione usuario de auditoría.', 'OK');
-      return;
-    }
-
-    // CREATE
     if (this.data.mode === 'create') {
-
-      this.leccionService
-        .create({
-          id_curso: v.id_curso,
-          titulo_leccion: v.titulo_leccion,
-          descripcion_leccion: v.descripcion_leccion || null,
-          orden: v.orden,
-          duracion_horas: v.duracion_horas,
-
-          // ✅ CLAVE (esto arregla el error)
-          id_usuario_creacion: uid,
-        })
-        .subscribe({
-          next: () => this.dialogRef.close(true),
-          error: (err: HttpErrorResponse) =>
-            this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
-        });
-
+      this.leccionService.create({
+        id_curso: v.id_curso,
+        titulo_leccion: v.titulo_leccion,
+        descripcion_leccion: v.descripcion_leccion || null,
+        orden: v.orden,
+        duracion_horas: v.duracion_horas,
+        id_usuario_creacion: uid,
+      }).subscribe({
+        next: () => this.dialogRef.close(true),
+        error: (err: HttpErrorResponse) => this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
+      });
       return;
     }
-
-    // UPDATE
-    const id = this.data.row!.id_leccion;
 
     const body: LeccionUpdate = {
       id_curso: v.id_curso,
@@ -134,33 +98,18 @@ export class LeccionDialogComponent {
       descripcion_leccion: v.descripcion_leccion || null,
       orden: v.orden,
       duracion_horas: v.duracion_horas,
-
-      // ✅ recomendable (aunque no obligatorio)
       id_usuario_edita: uid,
     };
-
-    this.leccionService
-      .update(id, body)
-      .subscribe({
-        next: () => this.dialogRef.close(true),
-        error: (err: HttpErrorResponse) =>
-          this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
-      });
+    this.leccionService.update(this.data.row!.id_leccion, body).subscribe({
+      next: () => this.dialogRef.close(true),
+      error: (err: HttpErrorResponse) => this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
+    });
   }
 
   private msg(err: HttpErrorResponse): string {
     const d = err.error?.detail;
-
-    if (typeof d === 'string') {
-      return d;
-    }
-
-    if (Array.isArray(d)) {
-      return d
-        .map((x) => x.msg ?? JSON.stringify(x))
-        .join('; ');
-    }
-
+    if (typeof d === 'string') return d;
+    if (Array.isArray(d)) return d.map((x) => x.msg ?? JSON.stringify(x)).join('; ');
     return err.message;
   }
 }

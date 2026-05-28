@@ -13,7 +13,8 @@ export class UsuarioService {
 
   list(): Observable<UsuarioResponse[]> {
     const params = new HttpParams().set('skip', 0).set('limit', 500);
-    return this.http.get<UsuarioResponse[]>(`${this.base}/`, { params });
+    // ✅ CORREGIDO: sin slash al final para evitar redirect 307 que pierde el body
+    return this.http.get<UsuarioResponse[]>(this.base, { params });
   }
 
   get(id: string): Observable<UsuarioResponse> {
@@ -21,7 +22,8 @@ export class UsuarioService {
   }
 
   create(body: UsuarioCreate): Observable<UsuarioResponse> {
-    return this.http.post<UsuarioResponse>(`${this.base}/`, body);
+    // ✅ CORREGIDO: sin slash al final
+    return this.http.post<UsuarioResponse>(this.base, body);
   }
 
   update(id: string, body: UsuarioUpdate): Observable<UsuarioResponse> {
