@@ -9,7 +9,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { filter } from 'rxjs/operators';
 import { CategoriaService } from '../../core/services/categoria.service';
-import { CategoriaRead } from '../../models/api.models'; // ✅ CAMBIO
+import { CategoriaRead } from '../../models/api.models';
 import { CategoriaDialogComponent, CategoriaDialogData } from './categoria-dialog';
 
 @Component({
@@ -30,10 +30,10 @@ export class CategoriaListComponent implements AfterViewInit {
   private readonly dialog = inject(MatDialog);
   private readonly snack = inject(MatSnackBar);
 
-  // ✅ CAMBIO
-  readonly displayedColumns = ['nombre', 'fecha_creacion', 'fecha_edicion', 'acciones'];
+  // ✅ CORREGIDO: columnas alineadas con el HTML y con los campos reales del backend
+  // Se agrega id_usuario_creacion para mostrarlo en la tabla
+  readonly displayedColumns = ['nombre_categoria', 'id_usuario_creacion', 'fecha_creacion', 'fecha_edicion', 'acciones'];
 
-  // ✅ CAMBIO
   readonly dataSource = new MatTableDataSource<CategoriaRead>([]);
 
   loading = true;
@@ -66,7 +66,6 @@ export class CategoriaListComponent implements AfterViewInit {
     this.open({ mode: 'create' });
   }
 
-  // ✅ CAMBIO
   editar(row: CategoriaRead): void {
     this.open({ mode: 'edit', row });
   }
@@ -79,9 +78,9 @@ export class CategoriaListComponent implements AfterViewInit {
       .subscribe(() => this.reload());
   }
 
-  // ✅ CAMBIO
   eliminar(row: CategoriaRead): void {
-    if (!confirm(`¿Eliminar categoría "${row.nombre}"?`)) return;
+    // ✅ CORREGIDO: usa nombre_categoria
+    if (!confirm(`¿Eliminar categoría "${row.nombre_categoria}"?`)) return;
 
     this.svc.delete(row.id_categoria).subscribe({
       next: () => {

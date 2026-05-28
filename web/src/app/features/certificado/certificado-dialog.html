@@ -1,18 +1,30 @@
 <h2 mat-dialog-title>{{ data.mode === 'create' ? 'Nuevo certificado' : 'Editar certificado' }}</h2>
+
 <mat-dialog-content class="dialog-body">
   <form [formGroup]="form" class="grid">
+
+    <!-- Inscripción — dropdown -->
     <mat-form-field appearance="outline" class="span-2">
-      <mat-label>ID Inscripción</mat-label>
-      <input matInput formControlName="id_inscripcion" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+      <mat-label>Inscripción</mat-label>
+      <mat-select formControlName="id_inscripcion">
+        @if (loadingInscripciones) {
+          <mat-option disabled>Cargando...</mat-option>
+        } @else {
+          @for (i of inscripciones; track i.id_inscripcion) {
+            <mat-option [value]="i.id_inscripcion">
+              {{ i.id_inscripcion }} — {{ i.estado_inscripcion }}
+            </mat-option>
+          }
+        }
+      </mat-select>
       @if (form.controls.id_inscripcion.hasError('required')) {
         <mat-error>Requerido</mat-error>
       }
-      @if (form.controls.id_inscripcion.hasError('pattern')) {
-        <mat-error>Debe ser un UUID válido</mat-error>
-      }
     </mat-form-field>
+
   </form>
 </mat-dialog-content>
+
 <mat-dialog-actions align="end">
   <button mat-button type="button" (click)="cancel()">Cancelar</button>
   <button mat-flat-button color="primary" type="button" (click)="save()">Guardar</button>
