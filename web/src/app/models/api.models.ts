@@ -1,10 +1,11 @@
 export interface CalificacionResponse {
-   id_inscripcion: string;
-   id_evaluacion: string;
-   Nota: number;
-   fecha_creacion:string | null;
-   fecha_edicion: string | null;
-  
+  id_inscripcion: string;
+  id_evaluacion: string;
+  Nota: number;
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
 }
 
 export interface CalificacionCreate {
@@ -12,19 +13,17 @@ export interface CalificacionCreate {
   id_inscripcion: string;
   id_evaluacion: string;
   Nota: number;
-  
 }
 
 export interface CalificacionUpdate {
-  id_usuario_edita?: string;
+  id_usuario_edita: string;
   id_inscripcion?: string;
   id_evaluacion?: string;
   Nota?: number;
- 
-}	
+}
 
+// ================= CATEGORÍA =================
 
-// ✅ CORREGIDO: alineado con categoria_schema.py del backend
 export interface CategoriaRead {
   id_categoria: string;
   nombre_categoria: string;
@@ -44,30 +43,28 @@ export interface CategoriaUpdate {
   id_usuario_edita: string;
 }
 
+// ================= CERTIFICADO =================
 
 export interface CertificadoResponse {
   id_certificado: string;
   id_inscripcion: string;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
- 
-  
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
 }
 
 export interface CertificadoCreate {
   id_inscripcion: string;
   id_usuario_creacion: string;
-  
 }
 
 export interface CertificadoUpdate {
   id_inscripcion?: string;
-  id_usuario_edita?: string;
-
+  id_usuario_edita: string;
 }
 
-
-
+// ================= CURSO =================
 
 export interface CursoResponse {
   id_curso: string;
@@ -78,7 +75,6 @@ export interface CursoResponse {
   descripcion_curso: string | null;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
-  
 }
 
 export interface CursoCreate {
@@ -87,7 +83,6 @@ export interface CursoCreate {
   duracion_horas: number;
   estado_curso: string;
   descripcion_curso: string | null;
-  
 }
 
 export interface CursoUpdate {
@@ -96,46 +91,42 @@ export interface CursoUpdate {
   duracion_horas?: number;
   estado_curso?: string;
   descripcion_curso?: string | null;
- 
-}	
+}
 
+// ================= EVALUACIÓN =================
 
 export interface EvaluacionResponse {
- id_evaluacion: string;
- id_leccion: string;
- nombre_evaluacion: string;
- porcentaje: number;
- id_usuario_creacion: string;
- id_usuario_edita: string | null;
- fecha_creacion:  string | null;
- fecha_edicion:  string | null;
-  
+  id_evaluacion: string;
+  id_leccion: string;
+  nombre_evaluacion: string;
+  porcentaje: number;
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
 }
 
 export interface EvaluacionCreate {
   id_leccion: string;
   nombre_evaluacion: string;
   porcentaje: number;
-
 }
 
 export interface EvaluacionUpdate {
   id_leccion?: string;
   nombre_evaluacion?: string;
   porcentaje?: number;
-
 }
 
-
+// ================= INSCRIPCIÓN =================
 
 export interface InscripcionResponse {
   id_inscripcion: string;
   id_curso: string;
   id_usuario_inscrito: string;
   estado_inscripcion: string;
-  fecha_creacion:  string | null;
-  fecha_edicion:  string | null; 
-  
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
 }
 
 export interface InscripcionCreate {
@@ -148,21 +139,19 @@ export interface InscripcionUpdate {
   id_curso?: string;
   id_usuario_inscrito?: string;
   estado_inscripcion?: string;
- 
 }
 
+// ================= LECCIÓN =================
 
 export interface LeccionResponse {
   id_curso: string;
   id_leccion: string;
   titulo_leccion: string;
-  descripcion_leccion: string | null; 
-  orden: number; 
+  descripcion_leccion: string | null;
+  orden: number;
   duracion_horas: number;
-  fecha_creacion: string | null; 
-  fecha_edicion: string | null; 
-  
-  
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
 }
 
 export interface LeccionCreate {
@@ -172,8 +161,6 @@ export interface LeccionCreate {
   descripcion_leccion: string | null;
   orden: number;
   duracion_horas: number;
-  
-  
 }
 
 export interface LeccionUpdate {
@@ -183,10 +170,9 @@ export interface LeccionUpdate {
   descripcion_leccion?: string | null;
   orden?: number;
   duracion_horas?: number;
- 
- 	
 }
 
+// ================= MATERIAL =================
 
 export interface MaterialResponse {
   id_material: string;
@@ -195,7 +181,7 @@ export interface MaterialResponse {
   tipo_material: string | null;
   URL_archivo: string;
   fecha_creacion: string | null;
-  fecha_edicion: string | null; 
+  fecha_edicion: string | null;
 }
 
 export interface MaterialCreate {
@@ -203,7 +189,6 @@ export interface MaterialCreate {
   titulo_material: string;
   tipo_material: string | null;
   URL_archivo: string;
-
 }
 
 export interface MaterialUpdate {
@@ -212,31 +197,27 @@ export interface MaterialUpdate {
   titulo_material?: string;
   tipo_material?: string | null;
   URL_archivo?: string;
-  
- 
- 	
 }
 
+// ================= PAGO =================
 
 export interface PagoResponse {
-  id_pago:string;
-  id_usuario:string;
+  id_pago: string;
+  id_usuario: string;
   id_curso: string;
   monto: number;
   estado_pago: string;
   metodo_pago: string;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
-  
 }
 
 export interface PagoCreate {
+  id_usuario: string;
   id_curso: string;
   monto: number;
   estado_pago: string;
   metodo_pago: string;
-  id_usuario?: string;          
-  id_usuario_creacion?: string;
 }
 
 export interface PagoUpdate {
@@ -246,6 +227,8 @@ export interface PagoUpdate {
   estado_pago?: string;
   metodo_pago?: string;
 }
+
+// ================= USUARIO =================
 
 export interface UsuarioResponse {
   id_usuario: string;
@@ -257,7 +240,6 @@ export interface UsuarioResponse {
   activo: boolean;
   fecha_creacion: string;
   fecha_edicion: string | null;
-  
 }
 
 export interface UsuarioCreate {
@@ -268,8 +250,6 @@ export interface UsuarioCreate {
   contrasena: string;
   rol: string;
   activo: boolean;
-  
-  
 }
 
 export interface UsuarioUpdate {

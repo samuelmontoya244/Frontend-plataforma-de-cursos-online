@@ -30,8 +30,6 @@ export class CategoriaListComponent implements AfterViewInit {
   private readonly dialog = inject(MatDialog);
   private readonly snack = inject(MatSnackBar);
 
-  // ✅ CORREGIDO: columnas alineadas con el HTML y con los campos reales del backend
-  // Se agrega id_usuario_creacion para mostrarlo en la tabla
   readonly displayedColumns = ['nombre_categoria', 'id_usuario_creacion', 'fecha_creacion', 'fecha_edicion', 'acciones'];
 
   readonly dataSource = new MatTableDataSource<CategoriaRead>([]);
@@ -79,7 +77,6 @@ export class CategoriaListComponent implements AfterViewInit {
   }
 
   eliminar(row: CategoriaRead): void {
-    // ✅ CORREGIDO: usa nombre_categoria
     if (!confirm(`¿Eliminar categoría "${row.nombre_categoria}"?`)) return;
 
     this.svc.delete(row.id_categoria).subscribe({
