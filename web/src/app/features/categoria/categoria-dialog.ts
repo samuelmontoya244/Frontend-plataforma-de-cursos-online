@@ -35,14 +35,12 @@ export class CategoriaDialogComponent {
   private readonly snack = inject(MatSnackBar);
   readonly data = inject<CategoriaDialogData>(MAT_DIALOG_DATA);
 
-  // ✅ CORREGIDO: nombre_categoria coincide con el backend
   readonly form = this.fb.nonNullable.group({
     nombre_categoria: ['', Validators.required],
   });
 
   constructor() {
     if (this.data.mode === 'edit' && this.data.row) {
-      // ✅ CORREGIDO: patchValue usa nombre_categoria
       this.form.patchValue({ nombre_categoria: this.data.row.nombre_categoria });
     }
   }
@@ -67,7 +65,6 @@ export class CategoriaDialogComponent {
 
     if (this.data.mode === 'create') {
       this.svc
-        // ✅ CORREGIDO: nombre_categoria + id_usuario_creacion coinciden con CategoriaCreate y el backend
         .create({ nombre_categoria: v.nombre_categoria, id_usuario_creacion: uid })
         .subscribe({
           next: () => this.dialogRef.close(true),
@@ -79,7 +76,6 @@ export class CategoriaDialogComponent {
 
     this.svc
       .update(this.data.row!.id_categoria, {
-        // ✅ CORREGIDO: nombre_categoria + id_usuario_edita coinciden con CategoriaUpdate y el backend
         nombre_categoria: v.nombre_categoria,
         id_usuario_edita: uid,
       })
