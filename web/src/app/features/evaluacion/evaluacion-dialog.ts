@@ -8,18 +8,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { AuditContextService } from '../../core/audit-context.service';
-import { CertificadoService } from '../../core/services/certificado.service';
-import { InscripcionService } from '../../core/services/inscripcion.service';
-import { CertificadoResponse, InscripcionResponse } from '../../models/api.models';
+import { EvaluacionService } from '../../core/services/evaluacion.service';
+import { LeccionService } from '../../core/services/leccion.service';
+import { EvaluacionResponse, EvaluacionUpdate, LeccionResponse } from '../../models/api.models';
 
-export interface CertificadoDialogData {
+export interface EvaluacionDialogData {
   mode: 'create' | 'edit';
-  row?: CertificadoResponse;
+  row?: EvaluacionResponse;
 }
 
 @Component({
-  selector: 'app-certificado-dialog',
+  selector: 'app-evaluacion-dialog',
   imports: [
     ReactiveFormsModule,
     MatDialogModule,
@@ -29,32 +28,38 @@ export interface CertificadoDialogData {
     MatSelectModule,
     MatSnackBarModule,
   ],
-  templateUrl: './certificado-dialog.html',
+  templateUrl: './evaluacion-dialog.html',
 })
-export class CertificadoDialogComponent implements OnInit {
+export class EvaluacionDialogComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
-  private readonly svc = inject(CertificadoService);
-  private readonly inscripcionService = inject(InscripcionService);
-  private readonly audit = inject(AuditContextService);
-  private readonly dialogRef = inject(MatDialogRef<CertificadoDialogComponent, boolean>);
+  private readonly evaluacionService = inject(EvaluacionService);
+  private readonly leccionService = inject(LeccionService);
+  private readonly dialogRef = inject(MatDialogRef<EvaluacionDialogComponent, boolean>);
   private readonly snack = inject(MatSnackBar);
-  readonly data = inject<CertificadoDialogData>(MAT_DIALOG_DATA);
+  readonly data = inject<EvaluacionDialogData>(MAT_DIALOG_DATA);
 
-  inscripciones: InscripcionResponse[] = [];
-  loadingInscripciones = true;
+  lecciones: LeccionResponse[] = [];
+  loadingLecciones = true;
 
   readonly form = this.fb.nonNullable.group({
-    id_inscripcion: ['', Validators.required],
+    id_leccion: ['', Validators.required],
+    nombre_evaluacion: ['', Validators.required],
+    porcentaje: [0, [Validators.required, Validators.min(1), Validators.max(100)]],
   });
 
   ngOnInit(): void {
-    this.inscripcionService.list().subscribe({
-      next: (data) => { this.inscripciones = data; this.loadingInscripciones = false; },
-      error: () => { this.loadingInscripciones = false; this.snack.open('Error al cargar inscripciones', 'Cerrar', { duration: 4000 }); },
+    this.leccionService.list().subscribe({
+      next: (data) => { this.lecciones = data; this.loadingLecciones = false; },
+      error: () => { this.loadingLecciones = false; this.snack.open('Error al cargar lecciones', 'Cerrar', { duration: 4000 }); },
     });
 
     if (this.data.mode === 'edit' && this.data.row) {
-      this.form.patchValue({ id_inscripcion: this.data.row.id_inscripcion });
+      const r = this.data.row;
+      this.form.patchValue({
+        id_leccion: r.id_leccion,
+        nombre_evaluacion: r.nombre_evaluacion,
+        porcentaje: r.porcentaje,
+      });
     }
   }
 
@@ -62,22 +67,26 @@ export class CertificadoDialogComponent implements OnInit {
 
   save(): void {
     if (this.form.invalid) { this.form.markAllAsTouched(); return; }
-    const uid = this.audit.usuarioId();
-    if (!uid) { this.snack.open('Seleccione usuario de auditoría en la barra superior.', 'OK'); return; }
     const v = this.form.getRawValue();
 
     if (this.data.mode === 'create') {
-      this.svc.create({ id_inscripcion: v.id_inscripcion, id_usuario_creacion: uid }).subscribe({
+      this.evaluacionService.create({
+        id_leccion: v.id_leccion,
+        nombre_evaluacion: v.nombre_evaluacion,
+        porcentaje: v.porcentaje,
+      }).subscribe({
         next: () => this.dialogRef.close(true),
         error: (err: HttpErrorResponse) => this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
       });
       return;
     }
 
-    this.svc.update(this.data.row!.id_certificado, {
-      id_inscripcion: v.id_inscripcion,
-      id_usuario_edita: uid,
-    }).subscribe({
+    const body: EvaluacionUpdate = {
+      id_leccion: v.id_leccion,
+      nombre_evaluacion: v.nombre_evaluacion,
+      porcentaje: v.porcentaje,
+    };
+    this.evaluacionService.update(this.data.row!.id_evaluacion, body).subscribe({
       next: () => this.dialogRef.close(true),
       error: (err: HttpErrorResponse) => this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
     });

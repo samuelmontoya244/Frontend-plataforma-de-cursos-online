@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>{{ data.mode === 'create' ? 'Nuevo curso' : 'Editar curso' }}</h2>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="grid">
+
+    <!-- Categoría — dropdown -->
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Categoría</mat-label>
+      <mat-select formControlName="id_categoria">
+        @if (loadingCategorias) {
+          <mat-option disabled>Cargando...</mat-option>
+        } @else {
+          @for (c of categorias; track c.id_categoria) {
+            <mat-option [value]="c.id_categoria">{{ c.nombre_categoria }}</mat-option>
+          }
+        }
+      </mat-select>
+      @if (form.controls.id_categoria.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Nombre del curso</mat-label>
+      <input matInput formControlName="nombre_curso" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Duración (horas)</mat-label>
+      <input matInput type="number" formControlName="duracion_horas" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado_curso">
+        <mat-option value="ACTIVO">Activo</mat-option>
+        <mat-option value="INACTIVO">Inactivo</mat-option>
+        <mat-option value="BORRADOR">Borrador</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="4" formControlName="descripcion_curso"></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="save()">Guardar</button>
+</mat-dialog-actions>

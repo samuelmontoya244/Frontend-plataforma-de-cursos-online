@@ -1,153 +1,66 @@
-# Frontend — Plataforma de Cursos Online
+🎓 Plataforma de Cursos Online - ITM
+Este proyecto consiste en una plataforma web integral para la gestión y consumo de cursos en línea, desarrollada para la asignatura de Programación de Software (4to Semestre) en el Instituto Tecnológico Metropolitano (ITM).
 
-Aplicación web desarrollada en **Angular 20** para la gestión de una plataforma de cursos online. Permite administrar usuarios, categorías, calificaciones y certificados a través de una interfaz moderna conectada a un backend REST.
+La solución integra un backend robusto para la lógica de negocio y un frontend moderno e intuitivo para la experiencia del usuario, permitiendo la gestión completa del ciclo educativo digital.
 
----
+👥 Integrantes
+CANO LARA NICOLAS
 
-## 🔗 Enlaces importantes
+MONTOYA GALEANO SAMUEL ESTEBAN
 
-| Recurso | URL |
-|---|---|
-| 🌐 Aplicación web (producción) | [plataforma-de-cursos-onl-507ce.web.app](https://plataforma-de-cursos-onl-507ce.web.app) |
-| ⚙️ Backend (Render) | [backend-plataforma-de-cursos-online-1.onrender.com](https://backend-plataforma-de-cursos-online-1.onrender.com) |
-| 🎥 Video explicativo | [Llamada con DUVAN — Grabación de la reunión (28/05/2026)](https://correoitmedu-my.sharepoint.com/:v:/g/personal/nicolascano1136534_correo_itm_edu_co/IQBvTnqK5SMQRauReAdPCVojAZ_K4e1eGpw32TQ1_YMj0Xk?e=xTnKsx&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D) |
+OCAMPO GAMEZ DUVAN ESNAYDER
 
----
+🔗 Enlaces del Proyecto
+Repositorio Backend: GitHub - Backend
+https://github.com/samuelmontoya244/Backend-plataforma-de-cursos-online
 
-## 🛠️ Tecnologías utilizadas
+Repositorio Frontend: GitHub - Frontend
+https://github.com/samuelmontoya244/Frontend-plataforma-de-cursos-online
 
-- **Angular 20** — Framework principal
-- **Angular Material** — Componentes de UI
-- **Angular CDK** — Kit de desarrollo de componentes
-- **RxJS** — Programación reactiva
-- **TypeScript 5.9**
-- **Firebase Hosting** — Despliegue del frontend
-- **Karma + Jasmine** — Pruebas unitarias
+Presentación en Video: Grabación de la Reunión
+https://correoitmedu-my.sharepoint.com/:v:/g/personal/nicolascano1136534_correo_itm_edu_co/IQCU2bmBSQYTSY4EaAG07bM6Af7MgU7BmlKflkMScFlKfjA?e=V2YShU&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D
 
----
+🛠️ Stack Tecnológico
+Backend
+Lenguaje: Python
 
-## 📁 Estructura del proyecto
+Framework: FastAPI
 
-```
-Frontend-plataforma-de-cursos-online/
-├── package.json                  # Scripts raíz (start, build, test)
-└── web/
-    ├── angular.json              # Configuración de Angular CLI
-    ├── firebase.json             # Configuración de Firebase Hosting
-    ├── package.json              # Dependencias del proyecto
-    └── src/
-        └── app/
-            ├── app.routes.ts     # Rutas de la aplicación
-            ├── app.config.ts     # Configuración global de Angular
-            ├── core/
-            │   ├── audit-user.guard.ts          # Guard de autenticación
-            │   ├── audit-context.service.ts     # Contexto de sesión
-            │   └── services/
-            │       ├── calificacion.service.ts
-            │       ├── categoria.service.ts
-            │       ├── certificado.service.ts
-            │       └── usuario.service.ts
-            ├── features/
-            │   ├── login/           # Pantalla de inicio de sesión
-            │   ├── shell/           # Layout principal con navegación
-            │   ├── usuarios/        # CRUD de usuarios
-            │   ├── categoria/       # CRUD de categorías
-            │   ├── calificacion/    # CRUD de calificaciones
-            │   └── certificado/     # CRUD de certificados
-            ├── models/
-            │   └── api.models.ts    # Interfaces TypeScript para la API
-            ├── shared/
-            │   └── ids.ts
-            └── environments/
-                ├── environment.ts
-                └── environment.prod.ts
-```
+Persistencia: SQLAlchemy (ORM) con PostgreSQL
 
----
+Autenticación: Seguridad basada en tokens JWT
 
-## 🚀 Instalación y ejecución local
+Frontend
+Framework: Angular 17+
 
-### Requisitos previos
+Lenguaje: TypeScript
 
-- Node.js >= 18
-- npm >= 9
-- Angular CLI (`npm install -g @angular/cli`)
+Diseño: Angular Material y CSS responsivo
 
-### Pasos
+Arquitectura: Organización modular (Core, Shared, Features)
 
-```bash
-# 1. Clonar el repositorio
-git clone <URL_DEL_REPOSITORIO>
-cd Frontend-plataforma-de-cursos-online
+📦 Módulos del Sistema
+Inscripción: Flujo para que los estudiantes se registren en sus cursos de interés.
 
-# 2. Instalar dependencias
-npm install
+Evaluación: Creación y toma de exámenes para validar conocimientos.
 
-# 3. Iniciar en modo desarrollo
-npm start
-```
+Pago: Gestión de transacciones para el acceso a contenidos premium.
 
-La aplicación estará disponible en `http://localhost:4200`.
+Material: Repositorio de recursos (documentos, enlaces y multimedia).
 
----
+🔧 Instalación Local
+Backend
+Crear entorno virtual: python -m venv venv
 
-## 📦 Scripts disponibles
+Instalar dependencias: pip install -r requirements.txt
 
-| Comando | Descripción |
-|---|---|
-| `npm start` | Inicia el servidor de desarrollo |
-| `npm run build` | Genera el build de producción |
-| `npm test` | Ejecuta las pruebas unitarias con Karma |
-| `npm run ng -- <comando>` | Ejecuta comandos de Angular CLI |
+Ejecutar: uvicorn main:app --reload
 
----
+Frontend
+Instalar módulos: npm install
 
-## 🗺️ Rutas de la aplicación
+Ejecutar: ng serve
 
-| Ruta | Componente | Protegida |
-|---|---|---|
-| `/login` | `LoginComponent` | No |
-| `/app/usuarios` | `UsuarioListComponent` | Sí |
-| `/app/categorias` | `CategoriaListComponent` | Sí |
-| `/app/calificaciones` | `CalificacionListComponent` | Sí |
-| `/app/certificados` | `CertificadoListComponent` | Sí |
+Acceder a: http://localhost:4200
 
-Las rutas bajo `/app` están protegidas por `auditUserGuard`, que verifica la sesión del usuario antes de permitir el acceso.
-
----
-
-## 📐 Modelos de datos principales
-
-La aplicación gestiona las siguientes entidades a través de la API REST:
-
-- **Usuario** — Gestión de cuentas con roles, documento de identidad y estado activo/inactivo
-- **Categoría** — Clasificación de cursos
-- **Curso** — Cursos con categoría, duración y estado
-- **Lección** — Lecciones asociadas a un curso con orden y duración
-- **Material** — Recursos de apoyo vinculados a lecciones
-- **Evaluación** — Evaluaciones por lección con porcentaje
-- **Inscripción** — Registro de usuarios en cursos
-- **Calificación** — Notas obtenidas en evaluaciones
-- **Certificado** — Certificados generados al completar un curso
-- **Pago** — Registro de pagos con método y estado
-
----
-
-## 🌐 Despliegue
-
-El frontend está desplegado en **Firebase Hosting**. Para generar y publicar una nueva versión:
-
-```bash
-# Build de producción
-npm run build
-
-# Desplegar en Firebase (requiere firebase-tools instalado)
-cd web
-firebase deploy --only hosting
-```
-
----
-
-## 🔗 Repositorio relacionado
-
-- **Backend:** [backend-plataforma-de-cursos-online-1.onrender.com](https://backend-plataforma-de-cursos-online-1.onrender.com)
+Proyecto académico desarrollado con fines de aprendizaje en el ITM.

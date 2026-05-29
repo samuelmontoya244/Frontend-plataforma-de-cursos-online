@@ -45,25 +45,21 @@ export class CategoriaDialogComponent {
     }
   }
 
-  cancel(): void {
-    this.dialogRef.close(false);
-  }
+  cancel(): void { this.dialogRef.close(false); }
 
   save(): void {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    if (this.form.invalid) { this.form.markAllAsTouched(); return; }
+
     const uid = this.audit.usuarioId();
     if (!uid) {
       this.snack.open('Seleccione usuario de auditoría en la barra superior.', 'OK');
       return;
     }
+
     const v = this.form.getRawValue();
 
     if (this.data.mode === 'create') {
-      this.svc
-        .create({ nombre_categoria: v.nombre_categoria, id_usuario_creacion: uid })
+      this.svc.create({ nombre_categoria: v.nombre_categoria, id_usuario_creacion: uid })
         .subscribe({
           next: () => this.dialogRef.close(true),
           error: (err: HttpErrorResponse) =>
@@ -72,16 +68,14 @@ export class CategoriaDialogComponent {
       return;
     }
 
-    this.svc
-      .update(this.data.row!.id_categoria, {
-        nombre_categoria: v.nombre_categoria,
-        id_usuario_edita: uid,
-      })
-      .subscribe({
-        next: () => this.dialogRef.close(true),
-        error: (err: HttpErrorResponse) =>
-          this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
-      });
+    this.svc.update(this.data.row!.id_categoria, {
+      nombre_categoria: v.nombre_categoria,
+      id_usuario_edita: uid,
+    }).subscribe({
+      next: () => this.dialogRef.close(true),
+      error: (err: HttpErrorResponse) =>
+        this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
+    });
   }
 
   private msg(err: HttpErrorResponse): string {

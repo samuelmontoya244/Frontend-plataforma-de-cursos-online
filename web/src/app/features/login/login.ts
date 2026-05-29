@@ -8,16 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatSelectModule } from '@angular/material/select'; //importé MatSelectModule para el campo tipo_documento
+import { MatSelectModule } from '@angular/material/select';
 
 import { AuditContextService } from '../../core/audit-context.service';
 import { UsuarioService } from '../../core/services/usuario.service';
+import { AuthService } from '../../core/services/auth.service';
 import { UsuarioResponse } from '../../models/api.models';
 
-/**
- * Login de demostración: solo comprueba que el nombre de usuario exista en el API.
- * La contraseña no se valida contra el backend (hasta que exista autenticación real).
- */
 @Component({
   selector: 'app-login',
   imports: [
@@ -26,7 +23,7 @@ import { UsuarioResponse } from '../../models/api.models';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule, //agregué MatSelectModule a los imports del componente
+    MatSelectModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
   ],
@@ -39,6 +36,7 @@ export class LoginComponent implements OnInit {
   private readonly audit = inject(AuditContextService);
   private readonly router = inject(Router);
   private readonly snack = inject(MatSnackBar);
+  private readonly authService = inject(AuthService);
 
   readonly loading = signal(true);
   readonly usuarios = signal<UsuarioResponse[]>([]);
@@ -49,12 +47,12 @@ export class LoginComponent implements OnInit {
   });
 
   readonly firstUserForm = this.fb.nonNullable.group({
-      nombre_usuario: ['', Validators.required],
-      tipo_documento: ['', Validators.required],
-      documento_identidad: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      contrasena: ['', [Validators.required, Validators.minLength(4)]],
-      rol: ['admin', Validators.required],
+    nombre_usuario: ['', Validators.required],
+    tipo_documento: ['', Validators.required],
+    documento_identidad: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    contrasena: ['', [Validators.required, Validators.minLength(4)]],
+    rol: ['admin', Validators.required],
   });
 
   ngOnInit(): void {
@@ -68,9 +66,9 @@ export class LoginComponent implements OnInit {
         this.usuarios.set(rows);
         this.loading.set(false);
       },
-      error: (err: HttpErrorResponse) => {
+      error: () => {
         this.loading.set(false);
-        this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 });
+        this.usuarios.set([]);
       },
     });
   }
@@ -80,19 +78,24 @@ export class LoginComponent implements OnInit {
       this.loginForm.markAllAsTouched();
       return;
     }
-    const { nombre_usuario } = this.loginForm.getRawValue();
-    const key = nombre_usuario.trim().toLowerCase();
-    const u = this.usuarios().find(
-      (x) => x.nombre_usuario.trim().toLowerCase() === key,
-    );
-    if (!u) {
-      this.snack.open('Usuario no encontrado. Revisa el nombre o crea un usuario en la base.', 'Cerrar', {
-        duration: 5000,
-      });
-      return;
-    }
-    this.audit.select(u.id_usuario);
-    void this.router.navigateByUrl('/app');
+
+    const { nombre_usuario, clave } = this.loginForm.getRawValue();
+
+    this.authService.login({ nombre_usuario, contrasena: clave }).subscribe({
+      next: (res) => {
+        // Guardar token
+        localStorage.setItem('token', res.access_token);
+
+        // Extraer user_id del payload del JWT y guardarlo en audit
+        const payload: any = JSON.parse(atob(res.access_token.split('.')[1]));
+        this.audit.select(payload.user_id);
+
+        void this.router.navigateByUrl('/app');
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snack.open(this.msg(err), 'Cerrar', { duration: 5000 });
+      },
+    });
   }
 
   crearPrimero(): void {
@@ -101,24 +104,39 @@ export class LoginComponent implements OnInit {
       return;
     }
     const v = this.firstUserForm.getRawValue();
-    this.usuarioService
-      .create({
+
+    // ✅ CORREGIDO: primero crea el usuario, luego hace login para obtener el token JWT
+    this.usuarioService.create({
+      nombre_usuario: v.nombre_usuario,
+      tipo_documento: v.tipo_documento,
+      documento_identidad: v.documento_identidad,
+      email: v.email,
+      contrasena: v.contrasena,
+      rol: v.rol,
+      activo: true,
+    }).subscribe({
+      next: () => {
+        // Una vez creado, hacer login para obtener el token real
+        this.authService.login({
           nombre_usuario: v.nombre_usuario,
-          tipo_documento: v.tipo_documento,
-          documento_identidad: v.documento_identidad,
-          email: v.email,
           contrasena: v.contrasena,
-          rol: v.rol,
-          activo: true,
-      })
-      .subscribe({
-        next: (created) => {
-          this.usuarios.set([...this.usuarios(), created]);
-          this.audit.select(created.id_usuario);
-          void this.router.navigateByUrl('/app');
-        },
-        error: (err: HttpErrorResponse) => this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
-      });
+        }).subscribe({
+          next: (res) => {
+            localStorage.setItem('token', res.access_token);
+            const payload: any = JSON.parse(atob(res.access_token.split('.')[1]));
+            this.audit.select(payload.user_id);
+            void this.router.navigateByUrl('/app');
+          },
+          error: (err: HttpErrorResponse) => {
+            // Usuario creado pero login falló — redirigir igual y avisar
+            this.snack.open('Usuario creado. Inicia sesión manualmente.', 'OK', { duration: 5000 });
+            this.reload();
+          },
+        });
+      },
+      error: (err: HttpErrorResponse) =>
+        this.snack.open(this.msg(err), 'Cerrar', { duration: 6000 }),
+    });
   }
 
   private msg(err: HttpErrorResponse): string {

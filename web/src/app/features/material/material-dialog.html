@@ -1,0 +1,44 @@
+<h2 mat-dialog-title>{{ data.mode === 'create' ? 'Nuevo material' : 'Editar material' }}</h2>
+
+<mat-dialog-content class="dialog-body">
+  <form [formGroup]="form" class="grid">
+
+    <!-- Lección — dropdown -->
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Lección</mat-label>
+      <mat-select formControlName="id_leccion">
+        @if (loadingLecciones) {
+          <mat-option disabled>Cargando...</mat-option>
+        } @else {
+          @for (l of lecciones; track l.id_leccion) {
+            <mat-option [value]="l.id_leccion">{{ l.titulo_leccion }}</mat-option>
+          }
+        }
+      </mat-select>
+      @if (form.controls.id_leccion.hasError('required')) {
+        <mat-error>Requerido</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>Título material</mat-label>
+      <input matInput formControlName="titulo_material" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tipo material</mat-label>
+      <input matInput formControlName="tipo_material" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="span-2">
+      <mat-label>URL archivo</mat-label>
+      <input matInput formControlName="URL_archivo" />
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">Cancelar</button>
+  <button mat-flat-button color="primary" type="button" (click)="save()">Guardar</button>
+</mat-dialog-actions>

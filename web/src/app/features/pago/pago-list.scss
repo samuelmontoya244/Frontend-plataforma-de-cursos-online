@@ -1,0 +1,81 @@
+/* Estructura general de la página */
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 0;
+    font: var(--mat-sys-title-large);
+    font-weight: 600;
+  }
+}
+
+/* Contenedor de la tabla */
+.table-wrap {
+  overflow: auto;
+  border-radius: 12px;
+  background-color: var(--mat-sys-surface);
+  
+  table {
+    width: 100%;
+  }
+}
+
+/* Alineación de la columna de acciones */
+.actions {
+  white-space: nowrap;
+  text-align: right;
+  padding-right: 16px !important;
+}
+
+/* Spinner de carga */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 64px;
+}
+
+/* --- Estilos específicos para Pagos --- */
+
+/* Columna de Monto */
+.mat-column-monto {
+  font-weight: 600;
+  color: var(--mat-sys-primary);
+}
+
+/* Badges de estado de pago */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+
+  &.completado {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+  }
+
+  &.pendiente {
+    background-color: #fff3e0;
+    color: #ef6c00;
+  }
+
+  &.fallido {
+    background-color: #ffebee;
+    color: #c62828;
+  }
+}
+
+/* Estilo para el ID de pago (monospace para que parezca un código) */
+.mat-column-id_pago {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 13px;
+  color: var(--mat-sys-outline);
+}

@@ -19,6 +19,11 @@
         <td mat-cell *matCellDef="let r">{{ r.nombre_categoria }}</td>
       </ng-container>
 
+      <ng-container matColumnDef="id_usuario_creacion">
+        <th mat-header-cell *matHeaderCellDef>Creado por (ID)</th>
+        <td mat-cell *matCellDef="let r">{{ r.id_usuario_creacion || '—' }}</td>
+      </ng-container>
+
       <ng-container matColumnDef="fecha_creacion">
         <th mat-header-cell *matHeaderCellDef>Creado</th>
         <td mat-cell *matCellDef="let r">{{ r.fecha_creacion || '—' }}</td>

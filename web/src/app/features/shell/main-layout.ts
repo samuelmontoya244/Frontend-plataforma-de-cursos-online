@@ -21,6 +21,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AuditContextService } from '../../core/audit-context.service';
 import { UsuarioService } from '../../core/services/usuario.service';
 import { UsuarioResponse } from '../../models/api.models';
+import { AuthService } from '../../core/services/auth.service';
 
 const SIDEBAR_KEY = 'shell_sidebar_collapsed';
 
@@ -47,6 +48,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   private readonly usuarioService = inject(UsuarioService);
   private readonly router = inject(Router);
   private readonly snack = inject(MatSnackBar);
+  private readonly authService = inject(AuthService);
 
   @ViewChild('sidenavShell') private sidenavShell?: MatSidenavContainer;
 
@@ -58,11 +60,18 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     typeof localStorage !== 'undefined' && localStorage.getItem(SIDEBAR_KEY) === '1',
   );
 
+  // ✅ CORREGIDO: merge resuelto — lista completa sin duplicados
   readonly nav = [
-    { path: 'usuarios',      label: 'Usuarios',       icon: 'people'       },
-    { path: 'categorias',    label: 'Categorías',     icon: 'category'     },
-    { path: 'calificaciones', label: 'Calificaciones', icon: 'grade'       },
-    { path: 'certificados',  label: 'Certificados',   icon: 'workspace_premium' },
+    { path: 'usuarios',       label: 'Usuarios',       icon: 'people'            },
+    { path: 'cursos',         label: 'Cursos',         icon: 'book'              },
+    { path: 'inscripciones',  label: 'Inscripciones',  icon: 'assignment'        },
+    { path: 'categorias',     label: 'Categorías',     icon: 'category'          },
+    { path: 'calificaciones', label: 'Calificaciones', icon: 'grade'             },
+    { path: 'certificados',   label: 'Certificados',   icon: 'workspace_premium' },
+    { path: 'material',       label: 'Material',       icon: 'library_books'     },
+    { path: 'pagos',          label: 'Pagos',          icon: 'payment'           },
+    { path: 'evaluacion',     label: 'Evaluación',     icon: 'assignment'        },
+    { path: 'leccion',        label: 'Lección',        icon: 'menu_book'         },
   ];
 
   ngOnInit(): void {
@@ -79,9 +88,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   private syncContentMarginsWithDrawer(): void {
     const shell = this.sidenavShell;
-    if (!shell) {
-      return;
-    }
+    if (!shell) return;
     shell.updateContentMargins();
   }
 
@@ -100,6 +107,7 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   logout(): void {
     this.audit.clear();
+    this.authService.logout();
     void this.router.navigateByUrl('/login');
   }
 
