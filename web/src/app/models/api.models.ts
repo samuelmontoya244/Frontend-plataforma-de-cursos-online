@@ -1,10 +1,11 @@
 export interface CalificacionResponse {
-   id_inscripcion: string;
-   id_evaluacion: string;
-   Nota: number;
-   fecha_creacion:string | null;
-   fecha_edicion: string | null;
-  
+  id_inscripcion: string;
+  id_evaluacion: string;
+  Nota: number;
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
 }
 
 export interface CalificacionCreate {
@@ -12,32 +13,39 @@ export interface CalificacionCreate {
   id_inscripcion: string;
   id_evaluacion: string;
   Nota: number;
-  
 }
 
 export interface CalificacionUpdate {
-  id_usuario_edita?: string;
+  id_usuario_edita: string;   // ← sin el ?
   id_inscripcion?: string;
   id_evaluacion?: string;
   Nota?: number;
- 
-}	
-
+}
 
 
 export interface CategoriaRead {
-  
+  id_categoria: string;
+  nombre_categoria: string;
 }
 
 export interface CategoriaCreate {
-  
-  
+  nombre_categoria: string;
+  id_usuario_creacion: string;
 }
 
 export interface CategoriaUpdate {
-  
-}	
+  nombre_categoria?: string;
+  id_usuario_edita: string;
+}
 
+export interface CategoriaResponse {
+  id_categoria: string;
+  nombre_categoria: string;
+  fecha_creacion: string;
+  fecha_edicion: string | null;
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
+}
 
 
 export interface CertificadoResponse {
@@ -45,23 +53,19 @@ export interface CertificadoResponse {
   id_inscripcion: string;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
- 
-  
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
 }
 
 export interface CertificadoCreate {
   id_inscripcion: string;
   id_usuario_creacion: string;
-  
 }
 
 export interface CertificadoUpdate {
   id_inscripcion?: string;
-  id_usuario_edita?: string;
-
+  id_usuario_edita: string;
 }
-
-
 
 
 export interface CursoResponse {
@@ -73,7 +77,6 @@ export interface CursoResponse {
   descripcion_curso: string | null;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
-  
 }
 
 export interface CursoCreate {
@@ -83,7 +86,6 @@ export interface CursoCreate {
   estado_curso: string;
   id_usuario_creacion: string;
   descripicon_curso: string | null;
-  
 }
 
 export interface CursoUpdate {
@@ -94,20 +96,18 @@ export interface CursoUpdate {
   estado_curso?: string;
   id_usuario_creacion?: string;
   descripicon_curso?: string | null;
- 
-}	
+}
 
 
 export interface EvaluacionResponse {
- id_evaluacion: string;
- id_leccion: string;
- nombre_evaluacion: string;
- porcentaje: number;
- id_usuario_creacion: string;
- id_usuario_edita: string | null;
- fecha_creacion:  string | null;
- fecha_edicion:  string | null;
-  
+  id_evaluacion: string;
+  id_leccion: string;
+  nombre_evaluacion: string;
+  porcentaje: number;
+  id_usuario_creacion: string;
+  id_usuario_edita: string | null;
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
 }
 
 export interface EvaluacionCreate {
@@ -115,8 +115,6 @@ export interface EvaluacionCreate {
   nombre_evaluacion: string;
   porcentaje: number;
   id_usuario_creacion: string;
-  
-  
 }
 
 export interface EvaluacionUpdate {
@@ -124,10 +122,7 @@ export interface EvaluacionUpdate {
   nombre_evaluacion?: string;
   porcentaje?: number;
   id_usuario_edita?: string;
- 
- 
 }
-
 
 
 export interface InscripcionResponse {
@@ -135,9 +130,8 @@ export interface InscripcionResponse {
   id_curso: string;
   id_usuario_inscrito: string;
   estado_inscripcion: string;
-  fecha_creacion:  string | null;
-  fecha_edicion:  string | null; 
-  
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
 }
 
 export interface InscripcionCreate {
@@ -145,8 +139,6 @@ export interface InscripcionCreate {
   id_usuario_inscrito: string;
   id_usuario_creacion: string;
   estado_inscripcion: string;
-  
-  
 }
 
 export interface InscripcionUpdate {
@@ -154,8 +146,6 @@ export interface InscripcionUpdate {
   id_usuario_inscrito?: string;
   id_usuario_edita?: string;
   estado_inscripcion?: string;
- 
- 
 }
 
 
@@ -163,13 +153,11 @@ export interface LeccionResponse {
   id_curso: string;
   id_leccion: string;
   titulo_leccion: string;
-  descripcion_leccion: string | null; 
-  orden: number; 
+  descripcion_leccion: string | null;
+  orden: number;
   duracion_horas: number;
-  fecha_creacion: string | null; 
-  fecha_edicion: string | null; 
-  
-  
+  fecha_creacion: string | null;
+  fecha_edicion: string | null;
 }
 
 export interface LeccionCreate {
@@ -179,8 +167,6 @@ export interface LeccionCreate {
   descripcion_leccion: string | null;
   orden: number;
   duracion_horas: number;
-  
-  
 }
 
 export interface LeccionUpdate {
@@ -190,8 +176,6 @@ export interface LeccionUpdate {
   descripcion_leccion?: string | null;
   orden?: number;
   duracion_horas?: number;
- 
- 	
 }
 
 
@@ -202,7 +186,7 @@ export interface MaterialResponse {
   tipo_material: string | null;
   URL_archivo: string;
   fecha_creacion: string | null;
-  fecha_edicion: string | null; 
+  fecha_edicion: string | null;
 }
 
 export interface MaterialCreate {
@@ -211,9 +195,6 @@ export interface MaterialCreate {
   tipo_material: string | null;
   URL_archivo: string;
   id_usuario_creacion: string;
- 
-  
-  
 }
 
 export interface MaterialUpdate {
@@ -221,23 +202,19 @@ export interface MaterialUpdate {
   id_leccion?: string;
   titulo_material?: string;
   tipo_material?: string | null;
-  URL_archivo?: number;
-  
- 
- 	
+  URL_archivo?: string;
 }
 
 
 export interface PagoResponse {
-  id_pago:string;
-  id_usuario:string;
+  id_pago: string;
+  id_usuario: string;
   id_curso: string;
   monto: number;
   estado_pago: string;
   metodo_pago: string;
   fecha_creacion: string | null;
   fecha_edicion: string | null;
-  
 }
 
 export interface PagoCreate {
@@ -247,9 +224,6 @@ export interface PagoCreate {
   estado_pago: string;
   metodo_pago: string;
   id_usuario_creacion: string;
- 
-  
-  
 }
 
 export interface PagoUpdate {
@@ -259,10 +233,8 @@ export interface PagoUpdate {
   monto?: number;
   estado_pago?: string;
   metodo_pago?: string;
-  
- 
- 	
 }
+
 
 export interface UsuarioResponse {
   id_usuario: string;
@@ -274,7 +246,6 @@ export interface UsuarioResponse {
   activo: boolean;
   fecha_creacion: string;
   fecha_edicion: string | null;
-  
 }
 
 export interface UsuarioCreate {
@@ -285,8 +256,6 @@ export interface UsuarioCreate {
   contrasena: string;
   rol: string;
   activo: boolean;
-  
-  
 }
 
 export interface UsuarioUpdate {
@@ -297,8 +266,4 @@ export interface UsuarioUpdate {
   contrasena?: string;
   rol?: string;
   activo?: boolean;
-  
- 
- 	
 }
-

@@ -19,6 +19,21 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/usuarios/usuario-list').then((m) => m.UsuarioListComponent),
       },
+      {
+        path: 'categorias',
+        loadComponent: () =>
+          import('./features/categoria/categoria-list').then((m) => m.CategoriaListComponent),
+      },
+      {
+        path: 'calificaciones',
+        loadComponent: () =>
+          import('./features/calificacion/calificacion-list').then((m) => m.CalificacionListComponent),
+      },
+      {
+        path: 'certificados',
+        loadComponent: () =>
+          import('./features/certificado/certificado-list').then((m) => m.CertificadoListComponent),
+      },
     ],
   },
   { path: '**', redirectTo: 'login' },
