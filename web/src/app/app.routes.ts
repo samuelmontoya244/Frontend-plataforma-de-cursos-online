@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-
 import { auditUserGuard } from './core/audit-user.guard';
 
 export const routes: Routes = [
@@ -20,7 +19,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'usuarios', pathMatch: 'full' },
 
-      // ✅ USUARIOS
       {
         path: 'usuarios',
         loadComponent: () =>
@@ -29,7 +27,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ CURSOS
       {
         path: 'cursos',
         loadComponent: () =>
@@ -38,7 +35,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ INSCRIPCIONES
       {
         path: 'inscripciones',
         loadComponent: () =>
@@ -47,7 +43,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ CATEGORIAS
       {
         path: 'categorias',
         loadComponent: () =>
@@ -56,7 +51,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ CALIFICACIONES
       {
         path: 'calificaciones',
         loadComponent: () =>
@@ -65,7 +59,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ CERTIFICADOS
       {
         path: 'certificados',
         loadComponent: () =>
@@ -74,7 +67,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ MATERIAL
       {
         path: 'material',
         loadComponent: () =>
@@ -83,7 +75,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ PAGOS
       {
         path: 'pagos',
         loadComponent: () =>
@@ -92,7 +83,6 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ EVALUACION
       {
         path: 'evaluacion',
         loadComponent: () =>
@@ -101,28 +91,12 @@ export const routes: Routes = [
           ),
       },
 
-      // ✅ LECCION
       {
         path: 'leccion',
         loadComponent: () =>
           import('./features/leccion/leccion-list').then(
             (m) => m.LeccionListComponent
           ),
-      },
-      {
-        path: 'categorias',
-        loadComponent: () =>
-          import('./features/categoria/categoria-list').then((m) => m.CategoriaListComponent),
-      },
-      {
-        path: 'calificaciones',
-        loadComponent: () =>
-          import('./features/calificacion/calificacion-list').then((m) => m.CalificacionListComponent),
-      },
-      {
-        path: 'certificados',
-        loadComponent: () =>
-          import('./features/certificado/certificado-list').then((m) => m.CertificadoListComponent),
       },
     ],
   },

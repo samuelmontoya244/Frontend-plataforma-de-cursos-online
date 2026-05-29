@@ -22,8 +22,8 @@ export interface CalificacionUpdate {
   Nota?: number;
 }
 
+// ================= CATEGORÍA =================
 
-// ✅ CORREGIDO: campos completos alineados con el backend
 export interface CategoriaRead {
   id_categoria: string;
   nombre_categoria: string;
@@ -43,6 +43,7 @@ export interface CategoriaUpdate {
   id_usuario_edita: string;
 }
 
+// ================= CERTIFICADO =================
 
 export interface CertificadoResponse {
   id_certificado: string;
@@ -63,6 +64,7 @@ export interface CertificadoUpdate {
   id_usuario_edita: string;
 }
 
+// ================= CURSO =================
 
 export interface CursoResponse {
   id_curso: string;
@@ -80,7 +82,6 @@ export interface CursoCreate {
   nombre_curso: string;
   duracion_horas: number;
   estado_curso: string;
-  // ✅ CORREGIDO: descripcion_curso (no descripicon_curso), sin id_usuario_creacion
   descripcion_curso: string | null;
 }
 
@@ -89,10 +90,10 @@ export interface CursoUpdate {
   nombre_curso?: string;
   duracion_horas?: number;
   estado_curso?: string;
-  // ✅ CORREGIDO: descripcion_curso (no descripicon_curso), sin id_usuario_creacion
   descripcion_curso?: string | null;
 }
 
+// ================= EVALUACIÓN =================
 
 export interface EvaluacionResponse {
   id_evaluacion: string;
@@ -109,16 +110,15 @@ export interface EvaluacionCreate {
   id_leccion: string;
   nombre_evaluacion: string;
   porcentaje: number;
-  // ✅ CORREGIDO: id_usuario_creacion no lo pide el backend en este schema
 }
 
 export interface EvaluacionUpdate {
   id_leccion?: string;
   nombre_evaluacion?: string;
   porcentaje?: number;
-  id_usuario_edita?: string;
 }
 
+// ================= INSCRIPCIÓN =================
 
 export interface InscripcionResponse {
   id_inscripcion: string;
@@ -141,6 +141,7 @@ export interface InscripcionUpdate {
   estado_inscripcion?: string;
 }
 
+// ================= LECCIÓN =================
 
 export interface LeccionResponse {
   id_curso: string;
@@ -171,6 +172,7 @@ export interface LeccionUpdate {
   duracion_horas?: number;
 }
 
+// ================= MATERIAL =================
 
 export interface MaterialResponse {
   id_material: string;
@@ -187,7 +189,6 @@ export interface MaterialCreate {
   titulo_material: string;
   tipo_material: string | null;
   URL_archivo: string;
-  // ✅ CORREGIDO: id_usuario_creacion no lo pide el backend en este schema
 }
 
 export interface MaterialUpdate {
@@ -198,6 +199,7 @@ export interface MaterialUpdate {
   URL_archivo?: string;
 }
 
+// ================= PAGO =================
 
 export interface PagoResponse {
   id_pago: string;
@@ -211,7 +213,6 @@ export interface PagoResponse {
 }
 
 export interface PagoCreate {
-  // ✅ CORREGIDO: id_usuario requerido (lo selecciona el usuario en el dropdown)
   id_usuario: string;
   id_curso: string;
   monto: number;
@@ -227,6 +228,7 @@ export interface PagoUpdate {
   metodo_pago?: string;
 }
 
+// ================= USUARIO =================
 
 export interface UsuarioResponse {
   id_usuario: string;

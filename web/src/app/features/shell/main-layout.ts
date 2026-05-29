@@ -60,7 +60,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     typeof localStorage !== 'undefined' && localStorage.getItem(SIDEBAR_KEY) === '1',
   );
 
-  // ✅ CORREGIDO: merge resuelto — lista completa sin duplicados
   readonly nav = [
     { path: 'usuarios',       label: 'Usuarios',       icon: 'people'            },
     { path: 'cursos',         label: 'Cursos',         icon: 'book'              },
